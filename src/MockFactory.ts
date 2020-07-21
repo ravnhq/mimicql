@@ -114,8 +114,9 @@ class MockFactory {
 
     if (!result.data || result.data[fieldName] === undefined) {
       throw new Error(
-        `Unable to generate mock data for ${mainDefinition.name.value ||
-          'fragment'}. This could be a result of missing mock resolvers or an incorrect fragment structure.`,
+        `Unable to generate mock data for ${
+          mainDefinition.name.value || 'fragment'
+        }. This could be a result of missing mock resolvers or an incorrect fragment structure.`,
       )
     }
     return { ...result.data[fieldName] }
