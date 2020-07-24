@@ -1,6 +1,6 @@
 {
   "name": "mgdg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Mock Graphql Data Generator",
   "repository": {
     "type": "git",
