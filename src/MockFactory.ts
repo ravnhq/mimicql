@@ -7,6 +7,7 @@ import {
   GraphQLInterfaceType,
   print,
   IntrospectionQuery,
+  buildSchema,
 } from 'graphql'
 import { getMainDefinition, addTypenameToDocument } from 'apollo-utilities'
 import {
@@ -72,7 +73,7 @@ class MockFactory {
 
   private mockSchema(options: { mocks?: ResolverMap } = {}) {
     const clonedSchema = transformSchema(this.schema, [])
-    const mergedMocks = mergeResolvers(options.mocks || {}, this.mocks)
+    const mergedMocks = mergeResolvers(this.mocks, options.mocks || {})
     addMockFunctionsToSchema({ schema: clonedSchema, mocks: mergedMocks })
     return clonedSchema
   }

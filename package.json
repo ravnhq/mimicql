@@ -30,6 +30,7 @@
     "graphql-tools": "^4.0.8"
   },
   "devDependencies": {
+    "graphql": "^14.6.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "npm-run-all": "^4.1.5",
