@@ -66,3 +66,5 @@ const rocketResults = mocker.mockQuery(query, { variables: { id: 'rocket-1' } })
 
 console.log(rocketResults)
 ```
+
+For more details, see this [demo](https://github.com/donovanhiland/mgdg-demo)
