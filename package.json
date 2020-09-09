@@ -2,6 +2,10 @@
   "name": "mgdg",
   "version": "1.0.0",
   "description": "Mock Graphql Data Generator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/donovanhiland/mgdg.git"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
