@@ -18,6 +18,7 @@ const mergeResolvers = (target: ResolverMap, input: ResolverMap) => {
           !Array.isArray(resolvedInput)
         ) {
           const newValue = { ...resolvedTarget, ...resolvedInput }
+
           return {
             ...accum,
             [key]: () => newValue,

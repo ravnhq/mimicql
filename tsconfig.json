@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "incremental": true,
-
     "outDir": "dist",
     "baseUrl": ".",
 
@@ -21,7 +19,7 @@
     "noStrictGenericChecks": false,
     "noUnusedParameters": true,
     "strict": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "exclude": ["**/node_modules", "**/dist"]
 }
