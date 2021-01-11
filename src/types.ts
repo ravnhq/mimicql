@@ -39,4 +39,11 @@ export type MockResolver<
 
 export type ResolverMap<> = {
   [key: string]: MockResolver<any>
+} & {
+  Query?: {
+    [key: string]: MockResolver<any>
+  }
+  Mutation?: {
+    [key: string]: MockResolver<any>
+  }
 }
