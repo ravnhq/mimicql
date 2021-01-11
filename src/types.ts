@@ -35,15 +35,8 @@ export type MockResolver<
   args?: TArgs,
   context?: TContext,
   info?: GraphQLResolveInfo,
-) => MockResolvedValue<TData> | ResolvedScalar
+) => MockResolvedValue<TData> | ResolvedScalar | ResolverMap
 
 export type ResolverMap<> = {
   [key: string]: MockResolver<any>
-} & {
-  Query?: {
-    [key: string]: MockResolver<any>
-  }
-  Mutation?: {
-    [key: string]: MockResolver<any>
-  }
 }
