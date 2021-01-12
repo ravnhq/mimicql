@@ -24,7 +24,12 @@
     "test": "jest",
     "validate": "npm-run-all static test"
   },
-  "keywords": [],
+  "keywords": [
+    "graphql",
+    "mock",
+    "test",
+    "mock data generator"
+  ],
   "author": "Donovan Hiland",
   "license": "ISC",
   "dependencies": {
