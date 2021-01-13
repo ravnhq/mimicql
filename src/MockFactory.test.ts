@@ -122,45 +122,66 @@ describe('addTypename', () => {
     }
   `
 
-  test('can set addTypename globally for MockFactory', () => {
-    // defaults to false
-    const mockerWithoutTypename = new MockFactory(jsonSchema)
+  const mockedFragmentTypename = (mocker: MockFactory) =>
+    mocker.mockFragment(fragment).__typename
 
-    expect(
-      mockerWithoutTypename.mockFragment(fragment).__typename,
-    ).toBeUndefined()
-    expect(mockerWithoutTypename.mockQuery(query).me.__typename).toBeUndefined()
-    expect(
-      mockerWithoutTypename.mockMutation(mutation).bookTrips.__typename,
-    ).toBeUndefined()
+  const mockedQueryTypename = (mocker: MockFactory) =>
+    mocker.mockQuery(query).me.__typename
 
-    const mockerWithTypename = new MockFactory(jsonSchema, {
+  const mockedMutationTypename = (mocker: MockFactory) =>
+    mocker.mockMutation(mutation).bookTrips.__typename
+
+  const mockedDataTypenames = (mocker: MockFactory) => {
+    return {
+      fragmentTypename: mockedFragmentTypename(mocker),
+      queryTypename: mockedQueryTypename(mocker),
+      mutationTypename: mockedMutationTypename(mocker),
+    }
+  }
+
+  test('globally defaults to true', () => {
+    const defaultMocker = new MockFactory(jsonSchema)
+
+    const {
+      fragmentTypename,
+      queryTypename,
+      mutationTypename,
+    } = mockedDataTypenames(defaultMocker)
+
+    expect(fragmentTypename).toBe('Rocket')
+    expect(queryTypename).toBe('User')
+    expect(mutationTypename).toBe('TripUpdateResponse')
+  })
+
+  test('globally override to true', () => {
+    const mockerWithTypenameExplicit = new MockFactory(jsonSchema, {
       addTypename: true,
     })
 
-    expect(mockerWithTypename.mockFragment(fragment).__typename).toBe('Rocket')
-    expect(mockerWithTypename.mockQuery(query).me.__typename).toBe('User')
-    expect(mockerWithTypename.mockMutation(mutation).bookTrips.__typename).toBe(
-      'TripUpdateResponse',
-    )
+    const {
+      fragmentTypename,
+      queryTypename,
+      mutationTypename,
+    } = mockedDataTypenames(mockerWithTypenameExplicit)
+
+    expect(fragmentTypename).toBe('Rocket')
+    expect(queryTypename).toBe('User')
+    expect(mutationTypename).toBe('TripUpdateResponse')
   })
 
-  test('can override addTypename', () => {
-    const mockerWithoutTypename = new MockFactory(jsonSchema)
+  test('globally override to false', () => {
+    const mockerWithoutTypenameExplicit = new MockFactory(jsonSchema, {
+      addTypename: false,
+    })
 
-    const options = {
-      addTypename: true,
-    }
+    const {
+      fragmentTypename,
+      queryTypename,
+      mutationTypename,
+    } = mockedDataTypenames(mockerWithoutTypenameExplicit)
 
-    expect(
-      mockerWithoutTypename.mockFragment(fragment, options).__typename,
-    ).toBe('Rocket')
-    expect(mockerWithoutTypename.mockQuery(query, options).me.__typename).toBe(
-      'User',
-    )
-    expect(
-      mockerWithoutTypename.mockMutation(mutation, options).bookTrips
-        .__typename,
-    ).toBe('TripUpdateResponse')
+    expect(fragmentTypename).toBeUndefined()
+    expect(queryTypename).toBeUndefined()
+    expect(mutationTypename).toBeUndefined()
   })
 })

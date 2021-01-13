@@ -96,7 +96,7 @@ class MockFactory {
 
   constructor(
     schema: IntrospectionQuery,
-    { mocks, addTypename = false }: Options = {},
+    { mocks, addTypename = true }: Options = {},
   ) {
     this.schema = buildMockSchema(schema)
     this.mocks = mocks ?? {}
