@@ -16,7 +16,7 @@ import {
   mergeSchemas,
 } from 'graphql-tools'
 import { ResolverMap } from './types'
-import mergeResolvers from './mergeResolvers'
+import mergeResolvers from './merge-resolvers'
 
 const buildMockSchema = (schemaJson: IntrospectionQuery) => {
   const originalSchema = buildClientSchema(schemaJson)
