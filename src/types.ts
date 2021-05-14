@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql'
+import { GraphQLResolveInfo } from "graphql"
 
 type ResolvedScalar = string | number | boolean | null
 type ResolvedValue =
@@ -13,7 +13,7 @@ type ScalarPropertyKeys<T> = {
   [P in keyof T]: Exclude<T[P], NonRecord> extends never ? P : never
 }[keyof T]
 
-type WithoutTypename<T> = Exclude<T, '__typename'>
+type WithoutTypename<T> = Exclude<T, "__typename">
 
 export type ShallowProperties<T> = {
   [K in WithoutTypename<ScalarPropertyKeys<T>>]: Exclude<T[K], undefined>

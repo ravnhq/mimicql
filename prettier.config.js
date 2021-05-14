@@ -1,5 +1,1 @@
-module.exports = {
-  semi: false,
-  singleQuote: true,
-  trailingComma: 'all',
-}
+module.exports = require("@ravn-dev/prettier-config")
