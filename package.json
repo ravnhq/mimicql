@@ -2,12 +2,12 @@
   "name": "mimicql",
   "version": "0.0.0-development",
   "description": "Mimic your graphql API by quickly and easily generating mock graphql data in the browser and node.js",
-  "repository": "https://github.com/ravnhq/react-native-midnight",
+  "repository": "https://github.com/ravnhq/mimicql",
   "author": "https://www.ravn.co/",
   "bugs": {
-    "url": "https://www.github.com/ravnhq/react-native-midnight/issues"
+    "url": "https://www.github.com/ravnhq/mimicql/issues"
   },
-  "homepage": "https://www.github.com/ravnhq/react-native-midnight#readme",
+  "homepage": "https://www.github.com/ravnhq/mimicql#readme",
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
