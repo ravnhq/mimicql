@@ -1,6 +1,6 @@
-import { buildASTSchema, introspectionFromSchema } from 'graphql'
-import gql from 'graphql-tag'
-import MockFactory from './mock-factory'
+import { buildASTSchema, introspectionFromSchema } from "graphql"
+import gql from "graphql-tag"
+import MockFactory from "./mock-factory"
 
 const schema = gql`
   type Rocket {
@@ -64,7 +64,7 @@ const schema = gql`
 
 const jsonSchema = introspectionFromSchema(buildASTSchema(schema))
 
-test('can mock a fragment that contains variables', () => {
+test("can mock a fragment that contains variables", () => {
   const mocker = new MockFactory(jsonSchema)
   const mockMap = {
     Mission: () => ({
@@ -85,7 +85,7 @@ test('can mock a fragment that contains variables', () => {
     }
   `
 
-  const variables = { patchSize: 'SMALL' }
+  const variables = { patchSize: "SMALL" }
   const mockMissionPatch = mocker.mockQuery(fragmentWithVariables, {
     mocks: mockMap,
     variables,
@@ -101,7 +101,7 @@ test('can mock a fragment that contains variables', () => {
   `)
 })
 
-describe('addTypename', () => {
+describe("addTypename", () => {
   const fragment = gql`
     fragment Rocket on Rocket {
       name
@@ -139,7 +139,7 @@ describe('addTypename', () => {
     }
   }
 
-  test('globally defaults to true', () => {
+  test("globally defaults to true", () => {
     const defaultMocker = new MockFactory(jsonSchema)
 
     const {
@@ -148,12 +148,12 @@ describe('addTypename', () => {
       mutationTypename,
     } = mockedDataTypenames(defaultMocker)
 
-    expect(fragmentTypename).toBe('Rocket')
-    expect(queryTypename).toBe('User')
-    expect(mutationTypename).toBe('TripUpdateResponse')
+    expect(fragmentTypename).toBe("Rocket")
+    expect(queryTypename).toBe("User")
+    expect(mutationTypename).toBe("TripUpdateResponse")
   })
 
-  test('globally override to true', () => {
+  test("globally override to true", () => {
     const mockerWithTypenameExplicit = new MockFactory(jsonSchema, {
       addTypename: true,
     })
@@ -164,12 +164,12 @@ describe('addTypename', () => {
       mutationTypename,
     } = mockedDataTypenames(mockerWithTypenameExplicit)
 
-    expect(fragmentTypename).toBe('Rocket')
-    expect(queryTypename).toBe('User')
-    expect(mutationTypename).toBe('TripUpdateResponse')
+    expect(fragmentTypename).toBe("Rocket")
+    expect(queryTypename).toBe("User")
+    expect(mutationTypename).toBe("TripUpdateResponse")
   })
 
-  test('globally override to false', () => {
+  test("globally override to false", () => {
     const mockerWithoutTypenameExplicit = new MockFactory(jsonSchema, {
       addTypename: false,
     })

@@ -1,4 +1,4 @@
-import { ResolverMap } from './types'
+import { ResolverMap } from "./types"
 
 const mergeResolvers = (target: ResolverMap, input: ResolverMap) => {
   const inputTypenames = Object.keys(input)
@@ -12,8 +12,8 @@ const mergeResolvers = (target: ResolverMap, input: ResolverMap) => {
         if (
           !!resolvedTarget &&
           !!resolvedInput &&
-          typeof resolvedTarget === 'object' &&
-          typeof resolvedInput === 'object' &&
+          typeof resolvedTarget === "object" &&
+          typeof resolvedInput === "object" &&
           !Array.isArray(resolvedTarget) &&
           !Array.isArray(resolvedInput)
         ) {
