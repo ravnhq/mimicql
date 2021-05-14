@@ -1,4 +1,4 @@
-import MockFactory from './MockFactory'
+import MockFactory from './mock-factory'
 
 export * from './types'
 export { MockList } from 'graphql-tools'

@@ -1,6 +1,6 @@
 import { buildASTSchema, introspectionFromSchema } from 'graphql'
 import gql from 'graphql-tag'
-import MockFactory from './MockFactory'
+import MockFactory from './mock-factory'
 
 const schema = gql`
   type Rocket {
