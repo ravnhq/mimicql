@@ -80,11 +80,12 @@ workflows:
     jobs:
       - validate:
           <<: *ignore_master
-  # validate_and_release:
-  #   jobs:
-  #     - validate:
-  #         <<: *only_master
-  #     - release:
-  #         <<: *only_master
-  #         requires:
-  #           - validate
+
+  validate_and_release:
+    jobs:
+      - validate:
+          <<: *only_master
+      - release:
+          <<: *only_master
+          requires:
+            - validate
