@@ -60,7 +60,7 @@ const schemaDoc = gql`
   }
 
   type Mutation {
-    createRocket(rocket: RocketInput!): Rocket!
+    createRocket(rocket: RocketInput!): Rocket
     bookTrips(launchIds: [ID]!): TripUpdateResponse!
     cancelTrip(launchId: ID!): TripUpdateResponse!
     login(email: String): String
