@@ -1,20 +1,24 @@
 module.exports = {
-  extends: 'kentcdodds',
-  rules: {
-    '@typescript-eslint/no-explicit-any': 'off',
-    // Disable for now until the Boolean ? a : b issue is fixed
-    '@typescript-eslint/no-unnecessary-condition': 'off',
+  root: true,
+  parserOptions: {
+    project: "./tsconfig.eslint.json",
   },
+  extends: [
+    "@ravn-dev/eslint-config-ravn/base",
+    "@ravn-dev/eslint-config-ravn/jest",
+    "@ravn-dev/eslint-config-ravn/typescript",
+  ],
+  rules: {},
   overrides: [
     {
-      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      files: ["**/*.test.{ts,tsx}"],
       rules: {
-        '@typescript-eslint/no-unsafe-assignment': 'off',
-        '@typescript-eslint/no-unsafe-member-access': 'off',
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
       },
     },
   ],
   parserOptions: {
-    project: './tsconfig.eslint.json',
+    project: "./tsconfig.eslint.json",
   },
 }

@@ -8,15 +8,15 @@ import {
   print,
   IntrospectionQuery,
   parse,
-} from 'graphql'
-import { getMainDefinition, addTypenameToDocument } from 'apollo-utilities'
+} from "graphql"
+import { getMainDefinition, addTypenameToDocument } from "apollo-utilities"
 import {
   addMockFunctionsToSchema,
   transformSchema,
   mergeSchemas,
-} from 'graphql-tools'
-import { ResolverMap } from './types'
-import mergeResolvers from './mergeResolvers'
+} from "graphql-tools"
+import { ResolverMap } from "./types"
+import mergeResolvers from "./merge-resolvers"
 
 const buildMockSchema = (schemaJson: IntrospectionQuery) => {
   const originalSchema = buildClientSchema(schemaJson)
@@ -25,9 +25,9 @@ const buildMockSchema = (schemaJson: IntrospectionQuery) => {
   const allTypeFields = Object.keys(typeMap).reduce((fields, typeName) => {
     const type = typeMap[typeName]
     if (
-      typeName.startsWith('__') ||
-      typeName === 'Query' ||
-      typeName === 'Mutation' ||
+      typeName.startsWith("__") ||
+      typeName === "Query" ||
+      typeName === "Mutation" ||
       (!(type instanceof GraphQLObjectType) &&
         !(type instanceof GraphQLInterfaceType))
     ) {
@@ -40,7 +40,7 @@ const buildMockSchema = (schemaJson: IntrospectionQuery) => {
   }, {})
 
   const mockSchema = new GraphQLSchema({
-    query: new GraphQLObjectType({ name: 'Query', fields: allTypeFields }),
+    query: new GraphQLObjectType({ name: "Query", fields: allTypeFields }),
   })
 
   return mergeSchemas({ schemas: [originalSchema, mockSchema] })
@@ -65,19 +65,19 @@ const executeOperation = (
 
 interface Options {
   mocks?: ResolverMap
-  addTypename?: Boolean
+  addTypename?: boolean
 }
 
 interface MockOptions<TVariables> {
   variables?: TVariables
   mocks?: ResolverMap
-  addTypename?: Boolean
+  addTypename?: boolean
 }
 
 class MockFactory {
   private schema: GraphQLSchema
   private mocks: ResolverMap
-  private addTypename: Boolean
+  private addTypename: boolean
 
   private mockSchema(options: { mocks?: ResolverMap } = {}) {
     const clonedSchema = transformSchema(this.schema, [])
@@ -88,7 +88,7 @@ class MockFactory {
 
   private maybeAddTypenameToDocument = (
     document: DocumentNode,
-    overrideAddTypename: Boolean | undefined,
+    overrideAddTypename: boolean | undefined,
   ) => {
     const addTypename = overrideAddTypename ?? this.addTypename
     return addTypename ? addTypenameToDocument(document) : document
@@ -105,7 +105,10 @@ class MockFactory {
 
   mockFragment = <TData = any>(
     fragment: DocumentNode,
-    options: Pick<MockOptions<{}>, 'addTypename' | 'mocks'> = {},
+    options: Pick<
+      MockOptions<Record<string, never>>,
+      "addTypename" | "mocks"
+    > = {},
   ): TData => {
     const { mocks = {}, addTypename } = options
 
@@ -115,9 +118,9 @@ class MockFactory {
     )
     const mainDefinition = getMainDefinition(fragmentDocument)
 
-    if (mainDefinition.kind !== 'FragmentDefinition') {
+    if (mainDefinition.kind !== "FragmentDefinition") {
       throw new Error(
-        'MockFactory: mockFragment only accepts fragment documents',
+        "MockFactory: mockFragment only accepts fragment documents",
       )
     }
 
@@ -140,10 +143,10 @@ class MockFactory {
       throw new Error(
         [
           `Unable to generate mock data for ${
-            mainDefinition.name.value || 'fragment'
+            mainDefinition.name.value || "fragment"
           }. This could be a result of missing mock resolvers or an incorrect fragment structure.`,
           print(fragment),
-        ].join('\n'),
+        ].join("\n"),
       )
     }
 
@@ -160,10 +163,10 @@ class MockFactory {
     const mainDefinition = getMainDefinition(queryDocument)
 
     if (
-      mainDefinition.kind !== 'OperationDefinition' ||
-      mainDefinition.operation !== 'query'
+      mainDefinition.kind !== "OperationDefinition" ||
+      mainDefinition.operation !== "query"
     ) {
-      throw new Error('MockFactory: mockQuery only accepts query documents')
+      throw new Error("MockFactory: mockQuery only accepts query documents")
     }
 
     const mockedSchema = this.mockSchema({ mocks })
@@ -174,11 +177,11 @@ class MockFactory {
       throw new Error(
         [
           `Unable to generate mock data for ${
-            mainDefinition.name?.value ?? 'unnamed'
+            mainDefinition.name?.value ?? "unnamed"
           } query. This could be a result of missing mock resolvers, incorrect query structure, or missing variables.`,
           `variables: ${JSON.stringify(variables, null, 2)}`,
           print(query),
-        ].join('\n'),
+        ].join("\n"),
       )
     }
 
@@ -198,11 +201,11 @@ class MockFactory {
     const mainDefinition = getMainDefinition(mutationDocument)
 
     if (
-      mainDefinition.kind !== 'OperationDefinition' ||
-      mainDefinition.operation !== 'mutation'
+      mainDefinition.kind !== "OperationDefinition" ||
+      mainDefinition.operation !== "mutation"
     ) {
       throw new Error(
-        'MockFactory: mockMutation only accepts mutation documents',
+        "MockFactory: mockMutation only accepts mutation documents",
       )
     }
 
@@ -214,11 +217,11 @@ class MockFactory {
       throw new Error(
         [
           `Unable to generate mock data for ${
-            mainDefinition.name?.value ?? 'unnamed'
+            mainDefinition.name?.value ?? "unnamed"
           } mutation. This could be a result of missing mock resolvers, incorrect mutation structure, or missing variables.`,
           `variables: ${JSON.stringify(variables, null, 2)}`,
           print(mutation),
-        ].join('\n'),
+        ].join("\n"),
       )
     }
 

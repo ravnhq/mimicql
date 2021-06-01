@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import gql from 'graphql-tag'
-import MockFactory from '../src/MockFactory'
-import { schema } from './schema'
-import { defaultResolvers } from './resolvers'
+import gql from "graphql-tag"
+import MockFactory from "../src/mock-factory"
+import { schema } from "./schema"
+import { defaultResolvers } from "./resolvers"
 
 const mocker = new MockFactory(schema, { mocks: defaultResolvers })
 
