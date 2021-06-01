@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import gql from "graphql-tag"
 import MockFactory from "../src/mock-factory"
 import { schema } from "./schema"
@@ -20,6 +18,8 @@ const mutation = gql`
 const createRocketResponse = mocker.mockMutation(mutation, {
   variables: { rocket: { name: "Falcon 1", type: "rocket" } },
 })
+
+console.log(createRocketResponse)
 
 // {
 //   createRocket: {

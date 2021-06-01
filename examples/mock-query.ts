@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import gql from "graphql-tag"
 import MockFactory from "../src/mock-factory"
 import { schema } from "./schema"
@@ -18,6 +16,8 @@ const query = gql`
 `
 
 const mockRocketsQuery = mocker.mockQuery(query)
+
+console.log(mockRocketsQuery)
 
 // {
 //   rockets: [

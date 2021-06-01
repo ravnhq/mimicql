@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import gql from "graphql-tag"
 import MockFactory from "../src/mock-factory"
 import { schema } from "./schema"
@@ -16,6 +14,8 @@ const fragment = gql`
 `
 
 const mockRocket = mocker.mockFragment(fragment)
+
+console.log(mockRocket)
 
 // {
 //   id: 'rocket-<uuid>',
