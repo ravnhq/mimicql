@@ -1,71 +1,9 @@
-import { buildASTSchema, introspectionFromSchema } from 'graphql'
 import gql from 'graphql-tag'
+import { schema } from '../examples/schema'
 import MockFactory from './MockFactory'
 
-const schema = gql`
-  type Rocket {
-    id: ID!
-    name: String
-    type: String
-  }
-
-  type Launch {
-    id: ID!
-    site: String
-    mission: Mission
-    rocket: Rocket
-    isBooked: Boolean!
-  }
-
-  type TripsEdge {
-    node: Launch
-  }
-
-  type TripsConnection {
-    edges: [TripsEdge]
-  }
-
-  type User {
-    id: ID!
-    email: String!
-    trips: [Launch]!
-    tripsConnection: TripsConnection
-  }
-
-  enum PatchSize {
-    SMALL
-    LARGE
-  }
-
-  type Mission {
-    name: String
-    missionPatch(size: PatchSize!): String
-  }
-
-  type TripUpdateResponse {
-    success: Boolean!
-    message: String
-    launches: [Launch]
-  }
-
-  type Query {
-    rockets: [Rocket]!
-    launches: [Launch]!
-    launch(id: ID!): Launch
-    me: User
-  }
-
-  type Mutation {
-    bookTrips(launchIds: [ID]!): TripUpdateResponse!
-    cancelTrip(launchId: ID!): TripUpdateResponse!
-    login(email: String): String
-  }
-`
-
-const jsonSchema = introspectionFromSchema(buildASTSchema(schema))
-
 test('can mock a fragment that contains variables', () => {
-  const mocker = new MockFactory(jsonSchema)
+  const mocker = new MockFactory(schema)
   const mockMap = {
     Mission: () => ({
       missionPatch: (_, missionPatchArgs) => {
@@ -140,7 +78,7 @@ describe('addTypename', () => {
   }
 
   test('globally defaults to true', () => {
-    const defaultMocker = new MockFactory(jsonSchema)
+    const defaultMocker = new MockFactory(schema)
 
     const {
       fragmentTypename,
@@ -154,7 +92,7 @@ describe('addTypename', () => {
   })
 
   test('globally override to true', () => {
-    const mockerWithTypenameExplicit = new MockFactory(jsonSchema, {
+    const mockerWithTypenameExplicit = new MockFactory(schema, {
       addTypename: true,
     })
 
@@ -170,7 +108,7 @@ describe('addTypename', () => {
   })
 
   test('globally override to false', () => {
-    const mockerWithoutTypenameExplicit = new MockFactory(jsonSchema, {
+    const mockerWithoutTypenameExplicit = new MockFactory(schema, {
       addTypename: false,
     })
 
